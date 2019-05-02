@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-
+    <i class="icon iconfont icon-shezhi"></i>
+    <i class="icon iconfont icon-jine"></i>
+    <i class="icon iconfont icon-ziyuan"></i>
+    <i class="icon iconfont icon-wode"></i>
+    <i class="icon iconfont icon-dianpu-xuanzhong"></i>
     <router-view/>
   </div>
 </template>

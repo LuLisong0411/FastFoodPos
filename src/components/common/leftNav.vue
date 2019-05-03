@@ -43,15 +43,15 @@ export default {
         width:5%;
     }
     .left-nav ul{
-        padding:0px;
-        margin:0px; 
+        padding: 0px;
+        margin: 0px; 
     }
     .iconfont{
         font-size:24px;
     }
     .left-nav li{
-        list-style:none;
-        text-align:center;
+        list-style: none;
+        text-align: center;
         border-bottom: 1px solid #20a0ff;
         padding:10px;
     }

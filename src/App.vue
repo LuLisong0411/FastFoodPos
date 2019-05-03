@@ -1,17 +1,18 @@
 <template>
   <div id="app">
-    <i class="icon iconfont icon-shezhi"></i>
-    <i class="icon iconfont icon-jine"></i>
-    <i class="icon iconfont icon-ziyuan"></i>
-    <i class="icon iconfont icon-wode"></i>
-    <i class="icon iconfont icon-dianpu-xuanzhong"></i>
-    <router-view/>
+    <leftNav></leftNav>
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
-
 <script>
+import leftNav from '@/components/common/leftNav'
 export default {
   name: 'App',
+  components:{
+    leftNav
+  }
 };
 </script>
 
@@ -22,6 +23,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+.main{
+   background-color:#00FF00;
+  height: 100%;
+  overflow: hidden
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    FastFoodPos
+   
   </div>
 </template>
 

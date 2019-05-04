@@ -235,7 +235,7 @@ export default {
        border:1px solid #E5E9F2;
        height: auot;
        overflow: hidden;
-       background-color:#ffffff;
+       background-color:#fff;
        padding: 2px;
        float:left;
        margin: 2px;

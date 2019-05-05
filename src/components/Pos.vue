@@ -47,7 +47,7 @@
             <el-tab-pane label="汉堡">
               <div>
                 <ul class='cookList'>
-                  <li v-for="foods in type0Goods">
+                  <li v-for="foods in typeGoods">
                       <span class="foodImg"><img src="foods.goodsImg" width="100%"></span>
                       <span class="foodName">{{foods.goodsName}}</span>
                       <span class="foodPrice">￥{{foods.price}}元</span>
@@ -135,7 +135,7 @@ export default {
               price:17
           }
       ],
-      type0Goods:[
+      typeGoods:[
           {
               goodsId:1,
               goodsImg:"http://7xjyw1.com1.z0.glb.clouddn.com/pos001.jpg",

@@ -23,6 +23,9 @@
 
           </el-tab-pane>
         </el-tabs>
+        <div class="totilDiv"> 
+          <small>数量：</small>{{totalCount}} &nbsp;&nbsp;&nbsp;<small>金额:</small>{{totalMoney }}
+        </div>
         <div class="div-btn">
           <el-button type="warning">挂单</el-button>
           <el-button type="danger">删除</el-button>
@@ -35,9 +38,9 @@
           <div class="title">常用商品</div>
           <div class="often-goods-list"> 
             <ul>
-              <li v-for="foods in oftenFoods">
-                <span>{{foods.goodsName}}</span>
-                <span class="o-price">￥{{foods.price}}</span>
+              <li v-for="goods in oftenFoods" @click="addOrderList(goods)">
+                <span>{{goods.goodsName}}</span>
+                <span class="o-price">￥{{goods.price}}</span>
               </li>
             </ul>
           </div>
@@ -47,7 +50,7 @@
             <el-tab-pane label="汉堡">
               <div>
                 <ul class='cookList'>
-                  <li v-for="goods in type0Goods">
+                  <li v-for="goods in type0Goods" @click="addOrderList(goods)">
                     <span class="foodImg"><img :src="goods.goodsImg" width="100%"></span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -58,7 +61,7 @@
             <el-tab-pane label="小食">
               <div>
                 <ul class='cookList'>
-                  <li v-for="goods in type1Goods">
+                  <li v-for="goods in type1Goods" @click="addOrderList(goods)">
                     <span class="foodImg"><img :src="goods.goodsImg" width="100%"></span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -69,7 +72,7 @@
             <el-tab-pane label="饮料">
               <div>
                 <ul class='cookList'>
-                  <li v-for="goods in type2Goods">
+                  <li v-for="goods in type2Goods" @click="addOrderList(goods)">
                     <span class="foodImg"><img :src="goods.goodsImg" width="100%"></span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -80,7 +83,7 @@
             <el-tab-pane label="套餐">
               <div>
                 <ul class='cookList'>
-                  <li v-for="goods in type3Goods">
+                  <li v-for="goods in type3Goods" @click="addOrderList(goods)">
                     <span class="foodImg"><img :src="goods.goodsImg" width="100%"></span>
                     <span class="foodName">{{goods.goodsName}}</span>
                     <span class="foodPrice">￥{{goods.price}}元</span>
@@ -102,74 +105,14 @@ export default {
   name: 'pos', 
   data(){
     return {
-      tableData:[{
-          
-          goodsName: '可口可乐',
-          count:1,
-          price: 8,
-        }, {
-          
-          goodsName: '香辣鸡腿堡',
-          count:1,
-          price: 15,
-        }, {
-         
-          goodsName: '爱心薯条',
-          count:1,
-          price: 8,
-        }, {
-         
-          goodsName: '甜筒',
-          count:1,
-          price: 8,
-        }],
-        oftenFoods:[
-          // {
-          //     goodsId:1,
-          //     goodsName:'香辣鸡腿堡',
-          //     price:18
-          // }, {
-          //     goodsId:2,
-          //     goodsName:'田园鸡腿堡',
-          //     price:15
-          // }, {
-          //     goodsId:3,
-          //     goodsName:'和风汉堡',
-          //     price:15
-          // }, {
-          //     goodsId:4,
-          //     goodsName:'快乐全家桶',
-          //     price:80
-          // }, {
-          //     goodsId:5,
-          //     goodsName:'脆皮炸鸡腿',
-          //     price:10
-          // }, {
-          //     goodsId:6,
-          //     goodsName:'魔法鸡块',
-          //     price:20
-          // }, {
-          //     goodsId:7,
-          //     goodsName:'可乐大杯',
-          //     price:10
-          // }, {
-          //     goodsId:8,
-          //     goodsName:'雪顶咖啡',
-          //     price:18
-          // }, {
-          //     goodsId:9,
-          //     goodsName:'大块鸡米花',
-          //     price:15
-          // }, {
-          //     goodsId:20,
-          //     goodsName:'香脆鸡柳',
-          //     price:17
-          // }
-        ],
-        type0Goods:[],
-        type1Goods:[],
-        type2Goods:[],
-        type3Goods:[],
+      tableData:[],
+      oftenFoods:[],
+      type0Goods:[],
+      type1Goods:[],
+      type2Goods:[],
+      type3Goods:[],
+      totalMoney:0,
+      totalCount:0
     }
   },
   created:function(){
@@ -199,7 +142,33 @@ export default {
     var orderHeight = document.body.clientHeight;
     // console.log(orderHeight);
     document.getElementById('order-list').style.height = orderHeight + 'px';
+  },
+  methods:{
+  addOrderList(goods){
+    this.totalMoney = 0;
+    this.totalCount = 0;
+    //判断商品是否已经存在于订单中
+    let isHave = false;
+    for(let i = 0;i<this.tableData.length;i++){
+      if(this.tableData[i].goodsId == goods.goodsId){
+        isHave = true;
+      }
+    }
+    //根据判断的值编写业务逻辑
+    if(isHave){
+      let arr = this.tableData.filter(o=>o.goodsId == goods.goodsId);
+      arr[0].count++;
+    }else{
+      let newGoods = {goodsId:goods.goodsId,goodsName:goods.goodsName,price:goods.price,count:1};
+      this.tableData.push(newGoods);
+    }
+    //汇总数量与金额
+    this.tableData.forEach((e)=>{
+      this.totalCount += e.count;
+      this.totalMoney = this.totalMoney+(e.price*e.count)
+    })
   }
+}
 };
 </script>
 
@@ -227,6 +196,7 @@ export default {
     margin: 10px;
     padding: 10px;
     display: block;
+    cursor: pointer;
   }
   .o-price{
     color:#58B7FF;
@@ -244,6 +214,7 @@ export default {
        padding: 2px;
        float:left;
        margin: 2px;
+       cursor: pointer;
  
    }
    .cookList li span{
@@ -264,6 +235,11 @@ export default {
        font-size: 16px;
        padding-left: 10px;
        padding-top:10px;
+   }
+   .totilDiv{
+     padding: 10px;
+     background-color: #ffaaee;
+     border-bottom: 1px solid rgb(95, 79, 99)
    }
   
 </style>

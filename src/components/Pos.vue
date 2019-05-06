@@ -35,9 +35,9 @@
           <div class="title">常用商品</div>
           <div class="often-goods-list"> 
             <ul>
-              <li v-for="goods in oftenGoods">
-                <span>{{goods.goodsName}}</span>
-                <span class="o-price">￥{{goods.price}}</span>
+              <li v-for="foods in oftenFoods">
+                <span>{{foods.goodsName}}</span>
+                <span class="o-price">￥{{foods.price}}</span>
               </li>
             </ul>
           </div>
@@ -123,7 +123,49 @@ export default {
           count:1,
           price: 8,
         }],
-        oftenGoods:[],
+        oftenFoods:[
+          // {
+          //     goodsId:1,
+          //     goodsName:'香辣鸡腿堡',
+          //     price:18
+          // }, {
+          //     goodsId:2,
+          //     goodsName:'田园鸡腿堡',
+          //     price:15
+          // }, {
+          //     goodsId:3,
+          //     goodsName:'和风汉堡',
+          //     price:15
+          // }, {
+          //     goodsId:4,
+          //     goodsName:'快乐全家桶',
+          //     price:80
+          // }, {
+          //     goodsId:5,
+          //     goodsName:'脆皮炸鸡腿',
+          //     price:10
+          // }, {
+          //     goodsId:6,
+          //     goodsName:'魔法鸡块',
+          //     price:20
+          // }, {
+          //     goodsId:7,
+          //     goodsName:'可乐大杯',
+          //     price:10
+          // }, {
+          //     goodsId:8,
+          //     goodsName:'雪顶咖啡',
+          //     price:18
+          // }, {
+          //     goodsId:9,
+          //     goodsName:'大块鸡米花',
+          //     price:15
+          // }, {
+          //     goodsId:20,
+          //     goodsName:'香脆鸡柳',
+          //     price:17
+          // }
+        ],
         type0Goods:[],
         type1Goods:[],
         type2Goods:[],
@@ -134,16 +176,13 @@ export default {
     axios.get('https://www.easy-mock.com/mock/5b8b30dbf032f03c5e71de7f/kuaican/oftenGoods')
     .then(reponse=>{
       // console.log(reponse);
-      this.oftenGoods = reponse.data;
-      
+      this.oftenFoods = reponse.data;
     })
     .catch(error=>{
       // console.log(error);
       alert('error')
     })
-  },
-  created:function(){
-    axios.get('https://www.easy-mock.com/mock/5b8b30dbf032f03c5e71de7f/kuaican/typeGoods ')
+    axios.get('https://www.easy-mock.com/mock/5b8b30dbf032f03c5e71de7f/kuaican/typeGoods')
     .then(reponse=>{
       // console.log(reponse);
       this.type0Goods = reponse.data[0];
@@ -187,6 +226,7 @@ export default {
     background-color: #fff;
     margin: 10px;
     padding: 10px;
+    display: block;
   }
   .o-price{
     color:#58B7FF;

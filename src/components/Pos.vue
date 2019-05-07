@@ -9,7 +9,7 @@
               <el-table-column prop="count" label="数量"></el-table-column>
               <el-table-column prop="price" label="单价"></el-table-column>
               <el-table-column label="操作" fixed="right">
-                <template scope="scope">
+                <template >
                   <el-button type="text" size="samll" @click="delSingleGoods(scope.row)">删除</el-button>
                   <el-button type="text" size="samll" @click="addOrderList(scope.row)">增加</el-button>
                 </template>
@@ -26,7 +26,6 @@
           {{totalMoney }}
         </div>
         <div class="div-btn">
-          <el-button type="warning">挂单</el-button>
           <el-button type="danger" @click="delAllGoods()">删除</el-button>
           <el-button type="success" @click="checkout()">结账</el-button>
         </div>
